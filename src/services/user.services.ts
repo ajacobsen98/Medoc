@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../models/user.model';
-import { firestore } from '/Users/alexanderjacobsen/medoc-master/medoc-api/src/config/firebase.config';
+import { firestore } from '../config/firebase.config';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

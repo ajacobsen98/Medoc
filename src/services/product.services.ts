@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from '../models/product.model';
-import { firestore } from '/Users/alexanderjacobsen/medoc-master/medoc-api/src/config/firebase.config';
+import { firestore } from '../config/firebase.config';
 
 @Injectable()
 export class ProductService {

@@ -1,34 +1,37 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './../services/user.services';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserInput } from '../dto/create-user.input';
+import { UpdateUserInput } from '../dto/update-user.input';
+import { User } from 'src/models/user.model';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.userService.createUser(createUserDto);
-  }
-
-  @Get()
-  async findAll() {
-    return await this.userService.findAll();
+  async create(@Body() createUserDto: CreateUserInput) {
+    const newUser = new User();
+    newUser.username = createUserDto.username;
+    newUser.email = createUserDto.email;
+    newUser.password = createUserDto.password;
+    // implement out the rest of the constructor
+    newUser.firstName = createUserDto.firstName;
+    newUser.lastName = createUserDto.lastName;
+    newUser.role = createUserDto.role;
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.userService.findOne(id);
+    return await this.userService.getUserById(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.userService.update(id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserInput) {
+    return await this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.userService.remove(id);
+    return await this.userService.deleteUser(id);
   }
 }

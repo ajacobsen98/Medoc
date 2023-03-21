@@ -29,4 +29,7 @@ export class PharmacyGuard implements CanActivate {
     const productId = request.params.productId;
     const inventoryId = request.params.inventoryId;
     if (productId) {
-      const product = await
+      return true;
+    }
+  }
+}
