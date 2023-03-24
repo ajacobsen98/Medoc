@@ -3,24 +3,22 @@
 import * as admin from 'firebase-admin';
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
-
+import firebase from '/Users/alexanderjacobsen/Medoc/medoc-api/firebase';
+import * as serviceAccount from '/Users/alexanderjacobsen/Medoc/medoc-api/src/config/secrets/medoc-ec348-3077f113c92d.json';
 
 @Injectable()
 export class FirestoreService {
-  private firestore: admin.firestore.Firestore;
+  private static firebaseApp: admin.app.App;
 
   constructor() {
-    // Use the Firebase Admin SDK to set up the connection
-    const serviceAccountPath = path.join(__dirname, '..', 'secrets', 'medoc-ec348-firebase-adminsdk-inov3-e94c848076.json');
-
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccountPath),
-    });
-
-    this.firestore = admin.firestore();
+    if (!FirestoreService.firebaseApp) {
+      FirestoreService.firebaseApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount as any),
+      });
+    }
   }
 
-  getDb(): admin.firestore.Firestore {
-    return this.firestore;
+  get firestore(): FirebaseFirestore.Firestore {
+    return FirestoreService.firebaseApp.firestore();
   }
 }

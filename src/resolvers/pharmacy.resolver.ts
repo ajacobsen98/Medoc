@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { PharmacyService } from '../services/pharmacy.services';
-import { Pharmacy } from '../models/pharmacy.model';
+import { Pharmacy, PharmacyInput } from '../models/pharmacy.model';
 import { CreatePharmacyInput } from '../dto/create-pharmacy.input';
 import { UpdatePharmacyInput } from '../dto/update-pharmacy.input';
 import { UseGuards } from '@nestjs/common';
@@ -18,7 +18,7 @@ export class PharmacyResolver {
   }
 
   @Mutation(() => Pharmacy)
-  async createPharmacy(@Args('input') input: Pharmacy): Promise<Pharmacy> {
+  async createPharmacy(@Args('input') input: PharmacyInput): Promise<Pharmacy> {
     return this.pharmacyService.createPharmacy(input);
   }
 

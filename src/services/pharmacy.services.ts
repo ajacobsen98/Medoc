@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Pharmacy } from '../models/pharmacy.model';
+import { Pharmacy, PharmacyInput } from '../models/pharmacy.model';
 import { firestore } from '../config/firebase.config';
 
 @Injectable()
 export class PharmacyService {
   private readonly pharmacyCollection = firestore.collection('pharmacies');
 
-  async createPharmacy(pharmacy: Pharmacy): Promise<Pharmacy> {
+  async createPharmacy(pharmacy: PharmacyInput): Promise<Pharmacy> {
     const pharmacyRef = await this.pharmacyCollection.add(pharmacy);
     const pharmacySnapshot = await pharmacyRef.get();
     const data = pharmacySnapshot.data();

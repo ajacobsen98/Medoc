@@ -14,7 +14,6 @@ export class UserController {
     newUser.username = createUserDto.username;
     newUser.email = createUserDto.email;
     newUser.password = createUserDto.password;
-    // implement out the rest of the constructor
     newUser.firstName = createUserDto.firstName;
     newUser.lastName = createUserDto.lastName;
     newUser.role = createUserDto.role;

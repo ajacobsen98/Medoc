@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, InputType } from '@nestjs/graphql';
 import { User } from './user.model';
 
 @ObjectType()
@@ -23,4 +23,16 @@ export class Pharmacy {
 
   @Field()
   updatedAt: Date;
+}
+
+@InputType()
+export class PharmacyInput {
+  @Field()
+  name: string;
+
+  @Field()
+  address: string;
+
+  @Field({ nullable: true })
+  phone?: string;
 }
